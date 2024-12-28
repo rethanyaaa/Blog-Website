@@ -1,18 +1,22 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import cors from "cors";  
+import cors from "cors";  // Import CORS
 import Router from "./routes/route.js";
 
 const app = express();
 dotenv.config();
 
+// CORS configuration
+app.use(cors({
+  origin: "https://blogwebsite318.netlify.app",  // Replace with your frontend domain
+  methods: ["POST", "GET", "OPTIONS"],
+  allowedHeaders: ["Authorization", "Content-Type"],
+}));
+
 // Use built-in middleware to parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Enable CORS (optional, remove if not needed)
-app.use(cors());
 
 // Connect to MongoDB
 const MONGO_URL = process.env.MONGO_DB;
